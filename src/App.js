@@ -34,24 +34,6 @@ class App extends React.Component {
     darkMode: false
   };
 
-  // executeSearch = () => {
-  //   let filteredTrips = this.state.trips.filter(obj => {
-  //     if (
-  //       obj.title.includes(this.state.query) ||
-  //       obj.origin_name.includes(this.state.query) ||
-  //       obj.destination_name.includes(this.state.query)
-  //     ) {
-  //       return true;
-  //     }
-  //   });
-
-  //   console.log("filtered", filteredTrips);
-
-  //   this.setState({
-  //     filteredTrips: filteredTrips
-  //   });
-  // };
-
   findResults = inputSphere => {
     console.log("this is the input", this.state.inputSphere);
     let filteredProducts = this.state.results.filter(obj => {
