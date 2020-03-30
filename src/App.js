@@ -30,30 +30,85 @@ const theme = createMuiTheme({
 class App extends React.Component {
   state = {
     inputSphere: 0,
+    inputCylinder: 0,
+    inputAddition: 0,
     results: result.data,
     darkMode: false
   };
 
-  findResults = inputSphere => {
+  findResults = (inputSphere, inputCylinder, inputAddition) => {
     console.log("this is the input", this.state.inputSphere);
-    let filteredProducts = this.state.results.filter(obj => {
-      if (
-        this.state.inputSphere <= obj.maxSphere &&
-        this.state.inputSphere >= obj.minSphere
-      ) {
-        return true;
-      }
-      console.log("this is the obj", obj);
-    });
+    // let filteredProducts = this.state.results.filter(obj => {
+    //   if (
+    //     this.state.inputSphere <= obj.maxSphere &&
+    //     this.state.inputSphere >= obj.minSphere
+    //   ) {
+    //     return true;
+    //   }
+
+    let filteredProducts = this.state.results;
+    if (this.state.inputSphere) {
+      filteredProducts = this.state.results.filter(product => {
+        if (
+          this.state.inputSphere <= product.maxSphere &&
+          this.state.inputSphere >= product.minSphere
+        ) {
+          return true;
+        }
+      });
+    }
+
+    if (this.state.inputCylinder) {
+      filteredProducts = this.state.results.filter(product => {
+        if (
+          this.state.inputCylinder <= product.maxCylinder &&
+          this.state.inputCylinder >= product.minCylinder
+        ) {
+          return true;
+        }
+      });
+    }
+
+    if (this.state.inputAddition) {
+      filteredProducts = this.state.results.filter(product => {
+        if (
+          this.state.inputAddition <= product.maxAddition &&
+          this.state.inputAddition >= product.minAddition
+        ) {
+          return true;
+        }
+      });
+    }
+
+    //----------
+    // if (
+    //   this.state.inputCylinder <= obj.maxCylinder &&
+    //   this.state.inputCylinder >= obj.minCylinder
+    // ) {
+    //   return true;
+    // }
+    // if (
+    //   this.state.inputAddition <= obj.maxAddition &&
+    //   this.state.inputAddition >= obj.minAddition
+    // ) {
+    //   return true;
+    // }
+    //   console.log("this is the obj", obj);
+    // });
+
     console.log("filtered", filteredProducts);
     this.setState({
       results: filteredProducts
+      //inputSphere: 0
     });
   };
 
   onSearch = () => {
     // console.log("to be done");
     this.findResults();
+    // this.setState({
+    //   inputSphere: this.state.inputSphere,
+    // });
     console.log("search button was pressed");
   };
   onChange = (key, value) => {
@@ -66,7 +121,13 @@ class App extends React.Component {
     });
   };
   render() {
-    const { darkMode, inputSphere, results } = this.state;
+    const {
+      darkMode,
+      inputSphere,
+      inputCylinder,
+      inputAddition,
+      results
+    } = this.state;
     return (
       <ThemeProvider theme={theme}>
         <div className={darkMode ? "AppDark" : "AppLight"}>
@@ -75,6 +136,18 @@ class App extends React.Component {
               inputField={inputSphere}
               name="inputSphere"
               label="Sphere"
+              onChange={this.onChange}
+            />
+            <InputField
+              inputField={inputCylinder}
+              name="inputCylinder"
+              label="Cylinder"
+              onChange={this.onChange}
+            />
+            <InputField
+              inputField={inputAddition}
+              name="inputAddition"
+              label="Addition"
               onChange={this.onChange}
             />
             <SearchButton onSearch={this.onSearch} />
