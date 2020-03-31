@@ -46,7 +46,7 @@ class App extends React.Component {
 
   // Task 2 + 4: functionality to filter search results
   findResults = (inputSphere, inputCylinder, inputAddition) => {
-    console.log("This is the input:", inputSphere);
+    //console.log("This is the input:", inputSphere);
 
     let filteredProducts = this.state.results
       .filter(product => {
@@ -79,7 +79,7 @@ class App extends React.Component {
         }
       });
 
-    console.log("These are the filtered results:", filteredProducts);
+    //console.log("These are the filtered results:", filteredProducts);
     this.setState({
       results: filteredProducts
     });
@@ -90,11 +90,11 @@ class App extends React.Component {
     // use the input values from the input fields and make them available for the findResults() function
     const { inputSphere, inputCylinder, inputAddition } = this.state;
     this.findResults(inputSphere, inputCylinder, inputAddition);
-    console.log("Search button was pressed!");
+    //console.log("Search button was pressed!");
   };
   onChange = (key, value) => {
     this.setState({ [key]: value });
-    console.log("This is the onChange value:", value);
+    //console.log("This is the onChange value:", value);
   };
   toggledarkMode = () => {
     this.setState({
