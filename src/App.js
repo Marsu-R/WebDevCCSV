@@ -28,92 +28,73 @@ const theme = createMuiTheme({
 });
 
 class App extends React.Component {
+  // add inputCylinder and inputAddition to initial state
   state = {
     inputSphere: 0,
     inputCylinder: 0,
     inputAddition: 0,
-    results: result.data,
+    results: [],
     darkMode: false
   };
 
+  // Task 1: add componentDidMount to show all products on page load
+  componentDidMount() {
+    this.setState({
+      results: result.data
+    });
+  }
+
+  // Task 2 + 4: functionality to filter search results
   findResults = (inputSphere, inputCylinder, inputAddition) => {
-    console.log("this is the input", this.state.inputSphere);
-    // let filteredProducts = this.state.results.filter(obj => {
-    //   if (
-    //     this.state.inputSphere <= obj.maxSphere &&
-    //     this.state.inputSphere >= obj.minSphere
-    //   ) {
-    //     return true;
-    //   }
+    console.log("This is the input:", inputSphere);
 
-    let filteredProducts = this.state.results;
-    if (this.state.inputSphere) {
-      filteredProducts = this.state.results.filter(product => {
-        if (
-          this.state.inputSphere <= product.maxSphere &&
-          this.state.inputSphere >= product.minSphere
-        ) {
+    let filteredProducts = this.state.results
+      .filter(product => {
+        if (!inputSphere) {
           return true;
+        } else {
+          return (
+            inputSphere <= product.maxSphere && inputSphere >= product.minSphere
+          );
+        }
+      })
+      .filter(product => {
+        if (!inputCylinder) {
+          return true;
+        } else {
+          return (
+            inputCylinder <= product.maxCylinder &&
+            inputCylinder >= product.minCylinder
+          );
+        }
+      })
+      .filter(product => {
+        if (!inputAddition) {
+          return true;
+        } else {
+          return (
+            inputAddition <= product.maxAddition &&
+            inputAddition >= product.minAddition
+          );
         }
       });
-    }
 
-    if (this.state.inputCylinder) {
-      filteredProducts = this.state.results.filter(product => {
-        if (
-          this.state.inputCylinder <= product.maxCylinder &&
-          this.state.inputCylinder >= product.minCylinder
-        ) {
-          return true;
-        }
-      });
-    }
-
-    if (this.state.inputAddition) {
-      filteredProducts = this.state.results.filter(product => {
-        if (
-          this.state.inputAddition <= product.maxAddition &&
-          this.state.inputAddition >= product.minAddition
-        ) {
-          return true;
-        }
-      });
-    }
-
-    //----------
-    // if (
-    //   this.state.inputCylinder <= obj.maxCylinder &&
-    //   this.state.inputCylinder >= obj.minCylinder
-    // ) {
-    //   return true;
-    // }
-    // if (
-    //   this.state.inputAddition <= obj.maxAddition &&
-    //   this.state.inputAddition >= obj.minAddition
-    // ) {
-    //   return true;
-    // }
-    //   console.log("this is the obj", obj);
-    // });
-
-    console.log("filtered", filteredProducts);
+    console.log("These are the filtered results:", filteredProducts);
     this.setState({
       results: filteredProducts
-      //inputSphere: 0
     });
   };
 
+  // Task 3: trigger the findResults() function when hitting the Search button
   onSearch = () => {
-    // console.log("to be done");
-    this.findResults();
-    // this.setState({
-    //   inputSphere: this.state.inputSphere,
-    // });
-    console.log("search button was pressed");
+    // use the input values from the input fields and make them available for the findResults() function
+    const { inputSphere, inputCylinder, inputAddition } = this.state;
+    this.findResults(inputSphere, inputCylinder, inputAddition);
+    console.log("Search button was pressed!");
   };
   onChange = (key, value) => {
     this.setState({ [key]: value });
-    console.log("this is onChange", value);
+    console.log("This is the onChange value:", value);
   };
   toggledarkMode = () => {
     this.setState({
@@ -121,6 +102,7 @@ class App extends React.Component {
     });
   };
   render() {
+    // add inputCylinder and inputAddition to variable to make them available as props
     const {
       darkMode,
       inputSphere,

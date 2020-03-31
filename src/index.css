@@ -97,7 +97,8 @@ body {
 .inputWrap {
   margin-right: 10px;
 }
-.inputWrap:nth-child(1) {
+/* adjust nth-child styling for all 3 input fields */
+.inputWrap:nth-child(-n + 3) {
   background: #1b3a4c;
   border-radius: 4px;
   box-shadow: inset -9px 9px 10px #173141, inset 9px -9px 10px #1f4357;
@@ -105,7 +106,8 @@ body {
 .inputWrapLight {
   margin-right: 10px;
 }
-.inputWrapLight:nth-child(1) {
+/* adjust nth-child styling for all 3 input fields */
+.inputWrapLight:nth-child(-n + 3) {
   background: #f6f6f6;
   border-radius: 4px;
 }
